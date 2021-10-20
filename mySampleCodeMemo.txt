@@ -1,0 +1,194 @@
+===== memo ===============================================================================================================================
+//client
+1. 在專案資料夾\Project01\下，執行npx create-react-app client，在client資料夾初始化專案。
+2. 執行npm install react-router-dom
+3. 在React專案中：(1)src 就是所有的React 檔案、(2) public/index.html 是這個頁面的Template、(3) src/index.js 則是Javascript的進入點。
+4. 在D:\MyCode\WebApp\Project01\client\public資料夾中，只保留index.html(保留必要資訊), manifest.json(不動), robots.txt(不動)
+5. 在D:\MyCode\WebApp\Project01\client\src資料夾中，只保留App.js (空內容)和index.js (保留必要import)，其他檔案刪除(包含index.css)。
+6. 在client\public\index.html加入bootstrap的CSS樣式和Bootstrap Bundle with Popper JS。
+7. 調整\client\src\的index.js和App.js
+8. 在\client\資料夾下執行npm start以啟動前端程式並開啟瀏覽器http://localhost:3000/
+
+//server
+1. 執行npm install cors (https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS)(未用到)
+
+===== structure ===============================================================================================================================
+client
+	> node_modules
+	> public
+	  index.html
+	>src
+		>components/home-component
+			home-component.js
+			nav-component.js
+			pipelineList-component.js
+			prodSummary-component.js
+		App.js
+		index.js
+	package.json
+			
+
+===== \client\public\ ===============================================================================================================================
+// D:\MyCode\WebApp\Project02\client\public\index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <title>MERN App</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+===== \client\src\ ===============================================================================================================================
+//D:\MyCode\WebApp\Project02\client\src\index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+
+
+//D:\MyCode\WebApp\Project02\client\src\App.js
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import HomeComponent from "./components/home-component";
+import NavComponent from "./components/nav-component";
+import ProductSummaryComponent from "./components/prodSummary-component";
+import PipelineListComponent from "./components/pipelineList-component";
+
+function App() {
+  return (
+    <div>
+      <NavComponent />
+      <Switch>
+        <Route path="/" exact>
+          <HomeComponent />
+        </Route>
+        <Route path="/productSummary" exact>
+          <ProductSummaryComponent />
+        </Route>
+        <Route path="/pipelineList" exact>
+          <PipelineListComponent />
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
+export default App;
+
+===== \client\src\components\ ===============================================================================================================================
+//D:\MyCode\WebApp\Project02\client\src\components\nav-component.js
+import React from "react";
+import { Link } from "react-router-dom";
+
+const NavComponent = () => {
+  return (
+    <div>
+      <nav>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="container-fluid">
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link className="nav-link active" to="/">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link active" to="/productSummary">
+                    Product Summary
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link active" to="/pipelineList">
+                    Pipeline List
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </nav>
+    </div>
+  );
+};
+
+export default NavComponent;
+
+
+
+//D:\MyCode\WebApp\Project02\client\src\components\home-component.js
+import React from "react";
+
+const HomeComponent = () => {
+  return (
+    <main>
+      <h1>Original CI Dashboard is Here</h1>
+    </main>
+  );
+};
+
+export default HomeComponent;
+
+
+//D:\MyCode\WebApp\Project02\client\src\components\prodSummary-component.js
+//import React, { useState, useEffect } from "react";
+//import { useHistory } from "react-router-dom";
+
+const ProductSummaryComponent = (props) => {
+  return (
+    <main>
+      <h1>Product Summary is Here</h1>
+    </main>
+  );
+};
+
+export default ProductSummaryComponent;
+
+
+
+//D:\MyCode\WebApp\Project02\client\src\components\pipelineList-component.js
+//import React, { useState, useEffect } from "react";
+//import { useHistory } from "react-router-dom";
+
+const PipelineListComponent = (props) => {
+  return (
+    <main>
+      <h1>Pipeline List is Here</h1>
+    </main>
+  );
+};
+
+export default PipelineListComponent;
